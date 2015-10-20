@@ -52,7 +52,7 @@ public class Motor extends Thread {
         if(actual < des){
             //accelero
             for(int i =0; i<SOGLIA_UP.length; i++){
-                if()
+
             }
         }else{
             //rallento
