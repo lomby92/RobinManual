@@ -21,16 +21,19 @@ public class Connection {
         }
     }
 
-    public Socket waitConnection(){
+    public void waitConnection(){
         try {
             client = serverSocket.accept();
-            System.out.println("Connessione effettuata!");
+
             in = new BufferedReader(new InputStreamReader(client.getInputStream(),"UTF-8"));
             out = new BufferedWriter(new OutputStreamWriter(client.getOutputStream(),"UTF-8"));
+            System.out.println("Connessione effettuata!");
+            sendMessage("Connessione stabilita\r\n");
         }catch (IOException ioe){
+            System.out.println("Errore nello stabilire la connessione");
             ioe.printStackTrace();
+
         }
-        return client;
     }
 
     public String getMessage(){
@@ -57,6 +60,7 @@ public class Connection {
             out.write(message);
             out.flush();
         }catch (IOException ioe){
+            System.out.println("Errore nell'invio del messaggio!");
             ioe.printStackTrace();
         }
     }
@@ -76,7 +80,7 @@ public class Connection {
         m.start();
 
         try{
-            String msg = "";
+            String msg;
             while (true){
                 client = serverSocket.accept();
                 System.out.println("client connesso");
@@ -88,6 +92,10 @@ public class Connection {
                     msg = getMessage();
                     if( msg!= null){
                         String tmp[]  = msg.split(";");
+                        System.out.println(tmp.length);
+                        if(tmp.length != 2){
+                            throw new IllegalArgumentException("Inserito messaggio non valido");
+                        }
                         int vel1 = Integer.parseInt(tmp[0]);
                         int vel2 = Integer.parseInt(tmp[1]);
                         int[] v = {vel1, vel2};

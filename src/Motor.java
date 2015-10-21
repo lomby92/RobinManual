@@ -29,7 +29,10 @@ public class Motor extends Thread {
             int desVel1 = desiredVel[0];
             int desVel2 = desiredVel[1];
 
-            System.out.println(desVel1 + " - " + desVel2);
+            actualVel1 = getLimitedVel(desVel1, actualVel1);
+            actualVel2 = getLimitedVel(desVel2, actualVel2);
+
+            System.out.println(actualVel1 + " - " + actualVel2);
 
             if(timer > 5){
                 int[] vel = {0, 0};
@@ -48,15 +51,20 @@ public class Motor extends Thread {
         }
     }
 
-    private void getLimitedVel(int des, int actual){
+    private int getLimitedVel(int des, int actual){
         if(actual < des){
             //accelero
-            for(int i =0; i<SOGLIA_UP.length; i++){
+            actual = actual +30;
+            actual = Math.min(actual, 100);
+            actual = Math.min(actual, des);
 
-            }
         }else{
             //rallento
+            actual = actual -30;
+            actual = Math.max(-100, actual);
+            actual = Math.max(actual, des);
         }
+        return actual;
     }
 
 }
