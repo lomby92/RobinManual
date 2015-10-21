@@ -16,7 +16,9 @@ public class Connection {
     public Connection(){
         try {
             serverSocket = new ServerSocket(PORT);
+            System.out.println("Server pronto!");
         }catch (IOException ioe){
+            System.out.println("Errore nell'avvio del server");
             ioe.printStackTrace();
         }
     }
