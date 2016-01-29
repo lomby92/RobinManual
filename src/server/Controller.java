@@ -45,7 +45,6 @@ public class Controller {
                 }
 
             }
-            server.sendMessage("Connessione chiusa! \r\n");
             server.disconnect();
         }
     }
