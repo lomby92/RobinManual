@@ -1,7 +1,11 @@
+package server;
+
+import java.util.Observable;
+
 /**
  * Created by lmillucci on 20/10/15.
  */
-public class Status {
+public class Status extends Observable{
 
     private int targetMotor1, targetMotor2;
     private boolean isFresh;
@@ -27,10 +31,10 @@ public class Status {
 
     public synchronized void setVel(int[] vel){
 
-        //Controllo che la velocità non sia minore della minima
+        //Controllo che la velocita non sia minore della minima
         vel[0] = Math.max(vel[0], -100);
         vel[1] = Math.max(vel[1], -100);
-        //Controllo che la velocità non sia maggiore della massima
+        //Controllo che la velocita non sia maggiore della massima
         vel[0] = Math.min(vel[0], 100);
         vel[1] = Math.min(vel[1], 100);
 
@@ -38,6 +42,10 @@ public class Status {
         this.targetMotor1 = vel[0];
         this.targetMotor2 = vel[1];
         isFresh = true;
+
+        //Ho appena aggiornato lo stato e quindi lo notifico agli osservatori
+        setChanged();
+        notifyObservers();
     }
 
     public synchronized boolean isFresh(){
