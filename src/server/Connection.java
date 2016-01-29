@@ -1,8 +1,12 @@
+package server;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
+ * Questa classe gestisce il funzionamento del server.
+ *
  * Created by lmillucci on 20/10/15.
  */
 public class Connection {
@@ -34,7 +38,6 @@ public class Connection {
         }catch (IOException ioe){
             System.out.println("Errore nello stabilire la connessione");
             ioe.printStackTrace();
-
         }
     }
 
@@ -77,48 +80,48 @@ public class Connection {
         }
     }
 
-    public void start(){
-        Motor m = new Motor();
-        m.start();
-
-        try{
-            String msg;
-            while (true){
-                client = serverSocket.accept();
-                System.out.println("client connesso");
-                in = new BufferedReader(new InputStreamReader(client.getInputStream(),"UTF-8"));
-                out = new BufferedWriter(new OutputStreamWriter(client.getOutputStream(),"UTF-8"));
-
-                msg = "";
-                while(msg!=null && !msg.equals("end")) {
-                    msg = getMessage();
-                    if( msg!= null){
-                        String tmp[]  = msg.split(";");
-                        System.out.println(tmp.length);
-                        if(tmp.length != 2){
-                            throw new IllegalArgumentException("Inserito messaggio non valido");
-                        }
-                        int vel1 = Integer.parseInt(tmp[0]);
-                        int vel2 = Integer.parseInt(tmp[1]);
-                        int[] v = {vel1, vel2};
-                        Status.getInstance().setVel(v);
-                    }
-                    System.out.println(msg);
-                }
-                out.close();
-                in.close();
-
-            }
-        }catch (IOException ioe){
-            try {
-                in.close();
-                out.close();
-            }catch (IOException i){
-                i.printStackTrace();
-            }
-        }catch (NullPointerException ne){
-            ne.printStackTrace();
-        }
-    }
+//    public void start(){
+//        Motor m = new Motor();
+//        m.start();
+//
+//        try{
+//            String msg;
+//            while (true){
+//                client = serverSocket.accept();
+//                System.out.println("client connesso");
+//                in = new BufferedReader(new InputStreamReader(client.getInputStream(),"UTF-8"));
+//                out = new BufferedWriter(new OutputStreamWriter(client.getOutputStream(),"UTF-8"));
+//
+//                msg = "";
+//                while(msg!=null && !msg.equals("end")) {
+//                    msg = getMessage();
+//                    if( msg!= null){
+//                        String tmp[]  = msg.split(";");
+//                        System.out.println(tmp.length);
+//                        if(tmp.length != 3){
+//                            throw new IllegalArgumentException("Inserito messaggio non valido");
+//                        }
+//                        int vel1 = Integer.parseInt(tmp[0]);
+//                        int vel2 = Integer.parseInt(tmp[1]);
+//                        boolean roll = Integer.parseInt(tmp[2]) == 1 ? true : false;
+//                        Status.getInstance().setStatus(vel1, vel2, roll);
+//                    }
+//                    System.out.println(msg);
+//                }
+//                out.close();
+//                in.close();
+//
+//            }
+//        }catch (IOException ioe){
+//            try {
+//                in.close();
+//                out.close();
+//            }catch (IOException i){
+//                i.printStackTrace();
+//            }
+//        }catch (NullPointerException ne){
+//            ne.printStackTrace();
+//        }
+//    }
 
 }

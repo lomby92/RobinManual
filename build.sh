@@ -1,5 +1,5 @@
 THE_BUILDPATH=../build
-PROGRAM_NAME=Controller.java
+PROGRAM_NAME=server.Controller.java
 cd src
 
 javac -d "${THE_BUILDPATH}" $PROGRAM_NAME

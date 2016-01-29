@@ -1,3 +1,3 @@
 cd build
 
-java Controller
+java server.Controller
