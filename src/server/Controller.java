@@ -1,5 +1,6 @@
 package server;
 
+import server.filter.DefaultFilter;
 import server.filter.LowPassFilter;
 
 /**
@@ -12,7 +13,7 @@ public class Controller {
         Motor motor = new Motor();
 
         //imposto i parametri necessari al funzionamento del motore
-        motor.setFilterStrategy(new LowPassFilter());
+        motor.setFilterStrategy(new DefaultFilter());
         Status.getInstance().addObserver(motor);
 
         motor.start();
