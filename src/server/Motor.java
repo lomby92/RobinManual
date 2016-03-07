@@ -51,6 +51,13 @@ public class Motor extends Thread  implements Observer{
             actualVelocity1 = filterStrategy.filterVelocity(desVel1, actualVelocity1, timer);
             actualVelocity2 = filterStrategy.filterVelocity(desVel2, actualVelocity2, timer);
 
+            //Invio il comando al motore
+            try {
+                MotorPWM.getInstance().setSpeed(actualVelocity1, actualVelocity2);
+            }catch (InterruptedException ie){
+                ie.printStackTrace();
+            }
+
             if(actualVelocity1 != 0 && actualVelocity2 != 0) {
                 System.out.println(actualVelocity1 + " - " + actualVelocity2);
             }
