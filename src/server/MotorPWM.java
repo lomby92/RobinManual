@@ -2,6 +2,11 @@ package server;
 
 import com.pi4j.wiringpi.Gpio;
 import com.pi4j.wiringpi.SoftPwm;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.RaspiPin;
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
 
 /**
  * Singleton che gestisce il collegamento fisico del motore
@@ -31,6 +36,8 @@ public class MotorPWM {
         //inizializzo le velocita nulle
         SoftPwm.softPwmWrite(PWM1_PIN, 0);
         SoftPwm.softPwmWrite(PWM2_PIN, 0);
+	
+	final GpioController gpio = GpioFactory.getInstance();
 
         pin_1A = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_03, "Motor1A", PinState.LOW);
         pin_1B = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_04, "Motor1B", PinState.HIGH);
