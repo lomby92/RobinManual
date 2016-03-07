@@ -1,3 +1,4 @@
 cd build
 
-java server.Controller
+sudo java -classpath .:classes:/opt/pi4j/lib/'*' server.Controller
+

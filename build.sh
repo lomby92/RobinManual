@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
-THE_BUILDPATH=../build
+BUILDPATH=../build
 PROGRAM_NAME=server.Controller.java
 
 cd src
 
-javac -classpath .:classes:/opt/pi4j/lib/'*' -d "${THE_BUILDPATH}" $PROGRAM_NAME
+javac -classpath .:classes:/opt/pi4j/lib/'*' -d "${BUILDPATH}" $PROGRAM_NAME
+
+javac -classpath .:classes:/opt/pi4j/lib/'*' -d "${BUILDPATH}" server.filter.*.java
 
 if [ $? -eq 0 ]
 then
