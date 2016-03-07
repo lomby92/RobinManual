@@ -11,20 +11,27 @@ import com.pi4j.wiringpi.SoftPwm;
 
 public class MotorPWM {
 
-    private final static int PIN_NUMBER1 = 1;
+    private final static int PWM1_PIN = 1;
+    private final static int DIR_A_PIN1 = 3;
+    private final static int DIR_B_PIN1 = 4;
+
+    private final static int DIR_A_PIN2 = 5;
+    private final static int DIR_B_PIN2 = 6;
     private final static int PIN_NUMBER2 = 2;
+
+
 
     private static MotorPWM instance = new MotorPWM();
 
     private MotorPWM(){
         Gpio.wiringPiSetup();
-        SoftPwm.softPwmCreate(PIN_NUMBER1, 0, 100);
+        SoftPwm.softPwmCreate(PWM1_PIN, 0, 100);
         SoftPwm.softPwmCreate(PIN_NUMBER2, 0, 100);
     }
 
 
     public void setSpeed(int speed1, int speed2) throws InterruptedException {
-        SoftPwm.softPwmWrite(PIN_NUMBER1, speed1);
+        SoftPwm.softPwmWrite(PWM1_PIN, speed1);
         SoftPwm.softPwmWrite(PIN_NUMBER2, speed2);
     }
 }
