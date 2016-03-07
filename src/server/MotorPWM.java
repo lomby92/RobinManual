@@ -37,7 +37,7 @@ public class MotorPWM {
         SoftPwm.softPwmWrite(PWM1_PIN, 0);
         SoftPwm.softPwmWrite(PWM2_PIN, 0);
 	
-	final GpioController gpio = GpioFactory.getInstance();
+	    final GpioController gpio = GpioFactory.getInstance();
 
         pin_1A = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_03, "Motor1A", PinState.LOW);
         pin_1B = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_04, "Motor1B", PinState.HIGH);
@@ -45,8 +45,10 @@ public class MotorPWM {
         pin_2A = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_05, "Motor2A", PinState.LOW);
         pin_2B = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_06, "Motor2B", PinState.HIGH);
 
+    }
 
-
+    public static MotorPWM getInstance(){
+        return instance;
     }
 
     public void setMotorsForward(){
